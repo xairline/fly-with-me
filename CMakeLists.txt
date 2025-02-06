@@ -125,9 +125,12 @@ endif()
 ################################################################################
 # Source Files
 ################################################################################
-add_library(XPMP2-Sample MODULE
-    XPMP2-Sample.cpp
-)
+# Find all .cpp and .h files in the current directory
+file(GLOB SOURCE_FILES "*.cpp")
+file(GLOB HEADER_FILES "*.h")
+
+# Add the collected files to the library
+add_library(XPMP2-Sample MODULE ${SOURCE_FILES} ${HEADER_FILES})
 
 # Header include directories
 target_include_directories(XPMP2-Sample PRIVATE

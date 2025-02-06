@@ -44,7 +44,7 @@ jobs:
   #####################################
   # MacOS with CMake/clang and sign/notarize in self-written script
   build-mac:
-    runs-on: macos-12
+    runs-on: macos-latest
     env:
       platform: mac
     steps:

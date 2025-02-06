@@ -424,6 +424,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
 				INSTALL_PATH = mac_x64;
+				XPLANE_ROOT = "/Volumes/storage/X-Plane 12";
 			};
 			name = Debug;
 		};
@@ -434,6 +435,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
 				INSTALL_PATH = mac_x64;
+				XPLANE_ROOT = "/Volumes/storage/X-Plane/12";
 			};
 			name = Release;
 		};

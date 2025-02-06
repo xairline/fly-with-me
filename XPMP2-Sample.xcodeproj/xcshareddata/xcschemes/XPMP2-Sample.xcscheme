@@ -42,7 +42,8 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         FilePath = "/Users/birger/Applications/X-Plane/12/X-Plane.app">
+         BundleIdentifier = "com.laminar-research.X-Plane"
+         FilePath = "/Volumes/storage/X-Plane 12/X-Plane.app">
       </PathRunnable>
    </LaunchAction>
    <ProfileAction

@@ -18,8 +18,7 @@ class SampleAircraft : public Aircraft {
     /// Constructor
     SampleAircraft(const std::string &_icaoType,
                    const std::string &_icaoAirline, const std::string &_livery,
-                   XPMPPlaneID _modeS_id = 0,
-                   const std::string &_cslId = "");
+                   XPMPPlaneID _modeS_id = 0, const std::string &_cslId = "");
 
     /// Custom implementation for updating aircraft position and state
     virtual void UpdatePosition(float, int) override;

@@ -25,7 +25,7 @@ if(DEFINED ENV{platform})
     endif()
 else()
     # No 'platform' defined could mean running from command line, assume we build universal image in one go via XCode
-    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "Archs to build")
+    set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE STRING "Archs to build")
 endif()
 
 project(XPMP2-Sample
@@ -74,6 +74,9 @@ set_property(GLOBAL PROPERTY CXX_STANDARD 17)
 
 # Enable all X-Plane SDK APIs up to the newest version.
 add_compile_definitions(XPLM200=1 XPLM210=1 XPLM300=1 XPLM301=1 XPLM303=1 XPLM400=1)
+
+# Windows specific defines
+add_compile_definitions(ASIO_STANDALONE=1 _WEBSOCKETPP_CPP11_TYPE_TRAITS_ _WINSOCKAPI_ _WEBSOCKETPP_CPP11_RANDOM_DEVICE_)
 
 # Define platform macros.
 add_compile_definitions(APL=$<BOOL:${APPLE}> IBM=$<BOOL:${WIN32}> LIN=$<AND:$<BOOL:${UNIX}>,$<NOT:$<BOOL:${APPLE}>>>)
@@ -199,7 +202,7 @@ elseif (APPLE)
     find_library(CORE_FOUNDATION_LIBRARY CoreFoundation REQUIRED)
     target_link_libraries(XPMP2-Sample ${XPLM_LIBRARY} ${FMOD_LIBRARY} ${IOKIT_LIBRARY} ${CORE_FOUNDATION_LIBRARY})
     # Restrict set of symbols exported from the plugin to the ones required by XPLM:
-    target_link_options(XPMP2-Sample PRIVATE "-exported_symbols_list ${CMAKE_CURRENT_SOURCE_DIR}/XPMP2-Sample.sym_mac -lcrypto")
+    target_link_options(XPMP2-Sample PRIVATE "-exported_symbols_list ${CMAKE_CURRENT_SOURCE_DIR}/XPMP2-Sample.sym_mac")
 elseif (UNIX)
     # Threads and dynamic loading
     find_library(DL_LIBRARY dl REQUIRED)

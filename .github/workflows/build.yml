@@ -46,7 +46,7 @@ jobs:
   build-mac:
     runs-on: macos-latest
     env:
-      platform: mac
+      platform: mac-arm
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4       # must checkout before we can use our own actions

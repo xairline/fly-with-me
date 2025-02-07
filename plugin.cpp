@@ -20,6 +20,7 @@
 #include "aircraft.h"
 #include "menu.h"
 #include "util.h"
+#include "websocket.h"
 
 #if !XPLM300
 #error This plugin requires version 300 of the SDK

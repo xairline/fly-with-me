@@ -6,6 +6,7 @@
 
 # Build directories
 build*/*
+build/
 
 # XCode user specific files
 xcuserdata/

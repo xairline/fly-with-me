@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		123282332D55055C005956E8 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 123282322D550559005956E8 /* util.cpp */; };
 		1232823C2D550F9B005956E8 /* aircraft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1232823B2D550F92005956E8 /* aircraft.cpp */; };
+		123282432D5666C1005956E8 /* websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 123282422D5666BB005956E8 /* websocket.cpp */; };
 		254A0B7C29185357004CA228 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A0B7B29185357004CA228 /* libfmod.dylib */; };
 		254A0B89291853EF004CA228 /* XPMP2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A0B84291853CD004CA228 /* XPMP2.framework */; };
 		2572C40623D88802006A7726 /* plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2572C40523D88802006A7726 /* plugin.cpp */; };
@@ -62,6 +63,7 @@
 		1232823A2D550ED2005956E8 /* aircraft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aircraft.h; sourceTree = "<group>"; };
 		1232823B2D550F92005956E8 /* aircraft.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aircraft.cpp; sourceTree = "<group>"; };
 		123282402D565DED005956E8 /* websocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = websocket.h; sourceTree = "<group>"; };
+		123282422D5666BB005956E8 /* websocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = websocket.cpp; sourceTree = "<group>"; };
 		254A0B7B29185357004CA228 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = lib/fmod/libfmod.dylib; sourceTree = "<group>"; };
 		254A0B7D291853CD004CA228 /* XPMP2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPMP2.xcodeproj; path = lib/XPMP2/XPMP2.xcodeproj; sourceTree = "<group>"; };
 		2572C40523D88802006A7726 /* plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin.cpp; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				2572C40523D88802006A7726 /* plugin.cpp */,
 				123282382D550E0F005956E8 /* menu.h */,
 				123282402D565DED005956E8 /* websocket.h */,
+				123282422D5666BB005956E8 /* websocket.cpp */,
 				1232823A2D550ED2005956E8 /* aircraft.h */,
 				1232823B2D550F92005956E8 /* aircraft.cpp */,
 				123282312D550523005956E8 /* util.h */,
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1232823C2D550F9B005956E8 /* aircraft.cpp in Sources */,
+				123282432D5666C1005956E8 /* websocket.cpp in Sources */,
 				2572C40623D88802006A7726 /* plugin.cpp in Sources */,
 				123282332D55055C005956E8 /* util.cpp in Sources */,
 			);

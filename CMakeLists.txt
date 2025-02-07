@@ -137,6 +137,9 @@ target_include_directories(XPMP2-Sample PRIVATE
     ${ADDITIONAL_INCLUDES}
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/XPMP2/lib/SDK/CHeaders/XPLM
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/XPMP2/inc
+    # Incude building/linking Websocket and asio
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/websocketpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/asio-1.30.2/include
 )
 
 
@@ -196,7 +199,7 @@ elseif (APPLE)
     find_library(CORE_FOUNDATION_LIBRARY CoreFoundation REQUIRED)
     target_link_libraries(XPMP2-Sample ${XPLM_LIBRARY} ${FMOD_LIBRARY} ${IOKIT_LIBRARY} ${CORE_FOUNDATION_LIBRARY})
     # Restrict set of symbols exported from the plugin to the ones required by XPLM:
-    target_link_options(XPMP2-Sample PRIVATE "-exported_symbols_list ${CMAKE_CURRENT_SOURCE_DIR}/XPMP2-Sample.sym_mac")
+    target_link_options(XPMP2-Sample PRIVATE "-exported_symbols_list ${CMAKE_CURRENT_SOURCE_DIR}/XPMP2-Sample.sym_mac -lcrypto")
 elseif (UNIX)
     # Threads and dynamic loading
     find_library(DL_LIBRARY dl REQUIRED)

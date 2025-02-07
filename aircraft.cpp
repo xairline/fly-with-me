@@ -35,18 +35,6 @@ RemoteAircraft::RemoteAircraft(const std::string &_icaoType,
 }
 
 void RemoteAircraft::UpdatePosition(float _elapsedSinceLastCall, int) {
-
-    static float accumulatedTime = 0.0f;
-    
-    LogMsg("Elapsed: %f", _elapsedSinceLastCall);
-    
-    accumulatedTime += _elapsedSinceLastCall;
-    if (accumulatedTime < UPDATE_INTERVAL) {
-        return; // Skip update if not enough time has passed
-    }
-    LogMsg("Accumulated time: %f", accumulatedTime);
-    accumulatedTime = 0.0f;
-
     // Calculate the plane's position
     const float angle = std::fmod(360.0f * GetTimeFragment(), 360.0f);
     positionTy pos = FindCenterPos(PLANE_DIST_M); // relative to user's plane

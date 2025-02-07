@@ -333,6 +333,7 @@
 					"-Wl,-exported_symbol",
 					"-Wl,_XPluginStop",
 					"-lcrypto",
+					"-lssl",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.twinfan.XPMP2-Sample";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -444,6 +445,7 @@
 					"-Wl,-exported_symbol",
 					"-Wl,_XPluginStop",
 					"-lcrypto",
+					"-lssl",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.twinfan.XPMP2-Sample";
 				PRODUCT_NAME = "${TARGET_NAME}";

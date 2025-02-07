@@ -212,6 +212,18 @@ PLUGIN_API int XPluginEnable(void) {
 
     // Success
     MenuUpdateCheckmarks();
+
+    LogMsg("Plugin Path: %s", szPath);
+    const std::string token = GetTokenFromFile(std::strcat(szPath, "config"));
+    if (token != "") {
+        // Launch the WebSocket connection on a new thread
+        WebSocketClient &wsClient = WebSocketClient::getInstance();
+        const std::string uri = "wss://app.xairline.org/apis/mp?auth=";
+        wsClient.connect(uri + token);
+    } else {
+        LogMsg("Failed to get Token: check %s", szPath);
+    }
+
     LogMsg("XPMP2-Sample: Enabled");
     return 1;
 }

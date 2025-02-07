@@ -11,6 +11,9 @@
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 // X-Plane SDK
 #include "XPLMDataAccess.h"
@@ -93,5 +96,7 @@ inline char *strScpy(char *dest, const char *src, size_t size) {
     dest[size - 1] = 0; // this ensures zero-termination!
     return dest;
 }
+
+std::string GetTokenFromFile(const std::string filePath);
 
 #endif // UTIL_H

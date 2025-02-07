@@ -11,7 +11,7 @@
 		1232823C2D550F9B005956E8 /* aircraft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1232823B2D550F92005956E8 /* aircraft.cpp */; };
 		254A0B7C29185357004CA228 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A0B7B29185357004CA228 /* libfmod.dylib */; };
 		254A0B89291853EF004CA228 /* XPMP2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A0B84291853CD004CA228 /* XPMP2.framework */; };
-		2572C40623D88802006A7726 /* XPMP2-Sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2572C40523D88802006A7726 /* XPMP2-Sample.cpp */; };
+		2572C40623D88802006A7726 /* plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2572C40523D88802006A7726 /* plugin.cpp */; };
 		25F4A2E72A3F9CF8002509C3 /* XPLM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F4A2E62A3F9CF8002509C3 /* XPLM.framework */; };
 		D6A7BDC116A1DEC000D1426A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A7BDC016A1DEC000D1426A /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -63,7 +63,7 @@
 		1232823B2D550F92005956E8 /* aircraft.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aircraft.cpp; sourceTree = "<group>"; };
 		254A0B7B29185357004CA228 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = lib/fmod/libfmod.dylib; sourceTree = "<group>"; };
 		254A0B7D291853CD004CA228 /* XPMP2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPMP2.xcodeproj; path = lib/XPMP2/XPMP2.xcodeproj; sourceTree = "<group>"; };
-		2572C40523D88802006A7726 /* XPMP2-Sample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "XPMP2-Sample.cpp"; sourceTree = "<group>"; };
+		2572C40523D88802006A7726 /* plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin.cpp; sourceTree = "<group>"; };
 		25A0F27323E8B906007D6B6E /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		25F4A2E62A3F9CF8002509C3 /* XPLM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XPLM.framework; path = lib/XPMP2/lib/SDK/Libraries/Mac/XPLM.framework; sourceTree = "<group>"; };
 		D607B19909A556E400699BC3 /* XPMP2-Sample.xpl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "XPMP2-Sample.xpl"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +97,7 @@
 		AC4E46B809C2E0B3006B7E1B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2572C40523D88802006A7726 /* XPMP2-Sample.cpp */,
+				2572C40523D88802006A7726 /* plugin.cpp */,
 				123282382D550E0F005956E8 /* menu.h */,
 				1232823A2D550ED2005956E8 /* aircraft.h */,
 				1232823B2D550F92005956E8 /* aircraft.cpp */,
@@ -207,7 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1232823C2D550F9B005956E8 /* aircraft.cpp in Sources */,
-				2572C40623D88802006A7726 /* XPMP2-Sample.cpp in Sources */,
+				2572C40623D88802006A7726 /* plugin.cpp in Sources */,
 				123282332D55055C005956E8 /* util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

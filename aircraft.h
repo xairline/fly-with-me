@@ -11,12 +11,14 @@
 // Include XPMP2 headers
 #include "util.h"
 
+static constexpr float UPDATE_INTERVAL = 1.0f / 25.0f; // 30 FPS
+
 using namespace XPMP2;
 
-class SampleAircraft : public Aircraft {
+class RemoteAircraft : public Aircraft {
   public:
     /// Constructor
-    SampleAircraft(const std::string &_icaoType,
+    RemoteAircraft(const std::string &_icaoType,
                    const std::string &_icaoAirline, const std::string &_livery,
                    XPMPPlaneID _modeS_id = 0, const std::string &_cslId = "");
 

@@ -1,7 +1,7 @@
 XPMP2 Sample Plugin
 =========
 
-[![Build all Platforms](https://github.com/TwinFan/XPMP2-Sample/actions/workflows/build.yml/badge.svg)](https://github.com/TwinFan/XPMP2-Sample/actions/workflows/build.yml)
+[![Build all Platforms](https://github.com/xairline/fly-with-me/actions/workflows/build.yml/badge.svg)](https://github.com/xairline/fly-with-me/actions/workflows/build.yml)
 
 This is a fully functional sample implementation and _Public Template_
 that you can use to play with features of the [XPMP2 library](https://github.com/TwinFan/XPMP2)

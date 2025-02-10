@@ -40,7 +40,6 @@ class AppState final {
 
   private:
     AppState();
-    // Destructor
     ~AppState();
     static AppState *instance;
 

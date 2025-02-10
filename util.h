@@ -27,6 +27,8 @@
 #include "XPMPAircraft.h"
 #include "XPMPMultiplayer.h"
 
+#define PLUGIN_NAME "fly-with-me"
+
 /// Freeze all movements at the moment?
 extern bool gbFreeze;
 

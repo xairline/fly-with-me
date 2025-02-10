@@ -42,6 +42,8 @@ WebSocketClient::WebSocketClient() {
         std::bind(&WebSocketClient::on_close, this, std::placeholders::_1));
     m_client.set_fail_handler(
         std::bind(&WebSocketClient::on_fail, this, std::placeholders::_1));
+    
+    m_client.clear_access_channels(websocketpp::log::alevel::all);
 
     // Start the ASIO io_service loop in a separate thread.
     // Since start_perpetual() is used, the run() call will continue running
@@ -117,7 +119,8 @@ void WebSocketClient::on_open(websocketpp::connection_hdl hdl) {
 // Event handler called when a message is received.
 void WebSocketClient::on_message(websocketpp::connection_hdl hdl,
                                  ws_client::message_ptr msg) {
-    LogMsg("Received message: %s", msg->get_payload().c_str());
+    return;
+//    LogMsg("Received message: %s", msg->get_payload().c_str());
 }
 
 // Event handler called when the connection is closed.

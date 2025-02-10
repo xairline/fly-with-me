@@ -12,14 +12,16 @@ bool gbFreeze = false;
 /// Log a message to X-Plane's Log.txt with sprintf-style parameters
 void LogMsg(const char *szMsg, ...) {
     char buf[512];
+    char finalBuf[512];
     va_list args;
     // Write all the variable parameters
     va_start(args, szMsg);
     std::vsnprintf(buf, sizeof(buf) - 2, szMsg, args);
     va_end(args);
     std::strcat(buf, "\n");
+    std::snprintf(finalBuf, sizeof(finalBuf), "[%s] %s\n", PLUGIN_NAME, buf);
     // write to log (flushed immediately -> expensive!)
-    XPLMDebugString(buf);
+    XPLMDebugString(finalBuf);
 }
 
 /// This is a callback the XPMP2 calls regularly to learn about configuration

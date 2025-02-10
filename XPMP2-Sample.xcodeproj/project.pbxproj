@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		123282332D55055C005956E8 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 123282322D550559005956E8 /* util.cpp */; };
-		1232823C2D550F9B005956E8 /* aircraft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1232823B2D550F92005956E8 /* aircraft.cpp */; };
-		123282432D5666C1005956E8 /* websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 123282422D5666BB005956E8 /* websocket.cpp */; };
+		127CF7BF2D599E9F0010501C /* appState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 127CF7BE2D599E9E0010501C /* appState.cpp */; };
 		254A0B7C29185357004CA228 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A0B7B29185357004CA228 /* libfmod.dylib */; };
 		254A0B89291853EF004CA228 /* XPMP2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A0B84291853CD004CA228 /* XPMP2.framework */; };
 		2572C40623D88802006A7726 /* plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2572C40523D88802006A7726 /* plugin.cpp */; };
@@ -59,11 +58,8 @@
 /* Begin PBXFileReference section */
 		123282312D550523005956E8 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		123282322D550559005956E8 /* util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
-		123282382D550E0F005956E8 /* menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menu.h; sourceTree = "<group>"; };
-		1232823A2D550ED2005956E8 /* aircraft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aircraft.h; sourceTree = "<group>"; };
-		1232823B2D550F92005956E8 /* aircraft.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aircraft.cpp; sourceTree = "<group>"; };
-		123282402D565DED005956E8 /* websocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = websocket.h; sourceTree = "<group>"; };
-		123282422D5666BB005956E8 /* websocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = websocket.cpp; sourceTree = "<group>"; };
+		127CF7BD2D599DA30010501C /* appState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = appState.h; sourceTree = "<group>"; };
+		127CF7BE2D599E9E0010501C /* appState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = appState.cpp; sourceTree = "<group>"; };
 		254A0B7B29185357004CA228 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = lib/fmod/libfmod.dylib; sourceTree = "<group>"; };
 		254A0B7D291853CD004CA228 /* XPMP2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPMP2.xcodeproj; path = lib/XPMP2/XPMP2.xcodeproj; sourceTree = "<group>"; };
 		2572C40523D88802006A7726 /* plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin.cpp; sourceTree = "<group>"; };
@@ -73,6 +69,10 @@
 		D6A7BDA916A1DEA200D1426A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		D6A7BDC016A1DEC000D1426A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		127CF7C02D59A11A0010501C /* components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = components; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D607B19709A556E400699BC3 /* Frameworks */ = {
@@ -100,12 +100,10 @@
 		AC4E46B809C2E0B3006B7E1B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				127CF7C02D59A11A0010501C /* components */,
 				2572C40523D88802006A7726 /* plugin.cpp */,
-				123282382D550E0F005956E8 /* menu.h */,
-				123282402D565DED005956E8 /* websocket.h */,
-				123282422D5666BB005956E8 /* websocket.cpp */,
-				1232823A2D550ED2005956E8 /* aircraft.h */,
-				1232823B2D550F92005956E8 /* aircraft.cpp */,
+				127CF7BD2D599DA30010501C /* appState.h */,
+				127CF7BE2D599E9E0010501C /* appState.cpp */,
 				123282312D550523005956E8 /* util.h */,
 				123282322D550559005956E8 /* util.cpp */,
 			);
@@ -159,6 +157,9 @@
 			dependencies = (
 				254A0B8D291858E9004CA228 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				127CF7C02D59A11A0010501C /* components */,
+			);
 			name = "XPMP2-Sample";
 			productName = StarterPlugin;
 			productReference = D607B19909A556E400699BC3 /* XPMP2-Sample.xpl */;
@@ -211,10 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1232823C2D550F9B005956E8 /* aircraft.cpp in Sources */,
-				123282432D5666C1005956E8 /* websocket.cpp in Sources */,
 				2572C40623D88802006A7726 /* plugin.cpp in Sources */,
 				123282332D55055C005956E8 /* util.cpp in Sources */,
+				127CF7BF2D599E9F0010501C /* appState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

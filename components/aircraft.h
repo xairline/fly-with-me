@@ -16,6 +16,9 @@ static constexpr float UPDATE_INTERVAL = 1.0f / 25.0f; // 30 FPS
 using namespace XPMP2;
 
 class RemoteAircraft : public Aircraft {
+  private:
+    float serverTimeOffset;
+
   public:
     /// Constructor
     RemoteAircraft(const std::string &_icaoType,

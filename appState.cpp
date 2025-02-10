@@ -111,11 +111,6 @@ void AppState::Deinitialize() {
 float AppState::PosReportLoopCallback(float inElapsedSinceLastCall,
                                       float inElapsedTimeSinceLastFlightLoop,
                                       int inCounter, void *inRefcon) {
-    if (inElapsedSinceLastCall > 0.05f) {
-        LogMsg("FPS is too low: %f", inElapsedSinceLastCall);
-    } else {
-        LogMsg("FPS is OK: %f", inElapsedSinceLastCall);
-    }
     float lat = XPLMGetDataf(planeLat);
     float lon = XPLMGetDataf(planeLon);
     float el = XPLMGetDataf(planeEl);

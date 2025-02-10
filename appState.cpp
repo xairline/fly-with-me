@@ -167,7 +167,7 @@ void AppState::OnWebSocketMessage(const std::string &msg) {
     std::vector<std::string> parsedMsg = splitString(msg, ',');
     std::string clientId = parsedMsg[1];
     std::string tsStr = parsedMsg[0];
-    int offset = static_cast<int64_t>(epoch_ms) - std::stoll(tsStr);
+    int64_t offset = static_cast<int64_t>(epoch_ms) - std::stoll(tsStr);
     if (remotePlanes[clientId] == nullptr) {
         std::lock_guard<std::mutex> lock(m_mutex);
         remoteAircraftInfo.push_back(clientId);

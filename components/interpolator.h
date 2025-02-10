@@ -10,6 +10,7 @@
 #include <deque>
 #include <string>
 #include <mutex>
+#include <algorithm> // for std::lower_bound (if needed)
 
 #include "util.h"
 
@@ -28,7 +29,7 @@ public:
         double roll;
     };
 
-    Interpolator(int);
+    Interpolator(int64_t);
     ~Interpolator() = default;
 
     // Delete copy semantics to ensure only one instance
@@ -39,7 +40,7 @@ public:
     void onWebSocketMessage(const std::string& msg);
 
     // Get interpolated state at a given renderTime
-    EntityState getInterpolatedState(int renderTime);
+    EntityState getInterpolatedState(int64_t renderTime);
     int64_t serverTimeOffset;
 
 private:

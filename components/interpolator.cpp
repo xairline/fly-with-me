@@ -6,9 +6,8 @@
 //
 
 #include "Interpolator.h"
-#include <algorithm> // for std::lower_bound (if needed)
 
-Interpolator::Interpolator(int offset) { this->serverTimeOffset = offset; }
+Interpolator::Interpolator(int64_t offset) { this->serverTimeOffset = offset; }
 
 //------------------------------------------------------------------------------
 // onWebSocketMessage
@@ -56,15 +55,21 @@ void Interpolator::addState(const EntityState &state) {
     double newestTime = m_buffer.back().timestamp;
 
     while (!m_buffer.empty() &&
-           (newestTime - m_buffer.front().timestamp) > MAX_HISTORY_SEC) {
+           (newestTime - m_buffer.front().timestamp) > MAX_HISTORY_SEC * 1000) {
         m_buffer.pop_front();
     }
+    std::string output = "";
+    for (Interpolator::EntityState &it : m_buffer) {
+        output.append(std::to_string(it.timestamp)).append(", ");
+    }
+    //    LogMsg("Buffer size: %d, %s", m_buffer.size(), output.c_str());
 }
 
 //------------------------------------------------------------------------------
 // getInterpolatedState
 //------------------------------------------------------------------------------
-Interpolator::EntityState Interpolator::getInterpolatedState(int renderTime) {
+Interpolator::EntityState
+Interpolator::getInterpolatedState(int64_t renderTime) {
     std::lock_guard<std::mutex> lock(m_mutex);
 
     // If no data in the buffer, return a default object
@@ -82,6 +87,9 @@ Interpolator::EntityState Interpolator::getInterpolatedState(int renderTime) {
     // (B) Or do short extrapolation
     if (renderTime >= m_buffer.back().timestamp) {
         // Return the last known state (simple approach)
+        LogMsg("WARNING: network dealy!!! - render time: %lld, latest ts: %lld, delta: %lld", renderTime,
+               m_buffer.back().timestamp,
+               renderTime - m_buffer.back().timestamp);
         return m_buffer.back();
 
         // or short extrapolation, e.g.:
@@ -89,7 +97,7 @@ Interpolator::EntityState Interpolator::getInterpolatedState(int renderTime) {
         const auto& last = m_buffer.back();
         double dt = renderTime - last.timestamp;
         EntityState extrap = last;
-        extrap.timestamp = renderTime;
+        extrap.timestamp = renderTime;Buffer size
         // naive extrap (heading-based) for demonstration:
         double rad = last.heading * (3.14159265358979 / 180.0); // if heading in
         degrees extrap.x += last.groundSpeed * std::cos(rad) * dt; extrap.lon +=

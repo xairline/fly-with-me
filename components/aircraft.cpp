@@ -41,19 +41,19 @@ void RemoteAircraft::UpdatePosition(float _elapsedSinceLastCall, int) {
     auto epoch_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
                         now.time_since_epoch())
                         .count();
-    int epoch_ms_int = static_cast<int64_t>(epoch_ms);
+    int64_t epoch_ms_int = static_cast<int64_t>(epoch_ms);
 
     auto newState = this->interpolator->getInterpolatedState(
-        epoch_ms_int - this->interpolator->serverTimeOffset);
+        epoch_ms_int - this->interpolator->serverTimeOffset - 100);
 
     newState.el /= M_per_FT; // we need elevation in feet
 
-    LogMsg("interpolator: %lld,%f,%f,%f", newState.timestamp, newState.lat,
-           newState.lat, newState.el);
+    newState.lat += 0.000449;
+    newState.lon += 0.000449;
 
     // So, here we tell the plane its position, which takes care of vertical
     // offset, too
-    SetLocation(newState.lat, newState.lon, newState.el + 15, false);
+    SetLocation(newState.lat, newState.lon, newState.el, false);
 
     // further attitude information
     SetPitch(newState.pitch);

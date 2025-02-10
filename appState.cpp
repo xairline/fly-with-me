@@ -139,7 +139,10 @@ float AppState::PosReportLoopCallback(float inElapsedSinceLastCall,
     while (!AppState::GetInstance()->remoteAircraftInfo.empty()) {
         // Process the last element.
         auto info = AppState::GetInstance()->remoteAircraftInfo.back();
-        LogMsg("New Remote player: %s", info.c_str());
+        LogMsg("New Remote player: %s, time offset(ms): %d", info.c_str(),
+               AppState::GetInstance()
+                   ->remotePlanes[info]
+                   ->interpolator->serverTimeOffset);
         AppState::GetInstance()->remotePlanes[info]->remotePlane =
             new RemoteAircraft(
                 AppState::GetInstance()->remotePlanes[info]->interpolator, info,
@@ -154,13 +157,22 @@ float AppState::PosReportLoopCallback(float inElapsedSinceLastCall,
 }
 
 void AppState::OnWebSocketMessage(const std::string &msg) {
+    // Get the current time from the system clock.
+    auto now = std::chrono::system_clock::now();
+
+    // Convert the time_since_epoch() to milliseconds.
+    auto epoch_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+                        now.time_since_epoch())
+                        .count();
     std::vector<std::string> parsedMsg = splitString(msg, ',');
     std::string clientId = parsedMsg[1];
+    std::string tsStr = parsedMsg[0];
+    int offset = static_cast<int64_t>(epoch_ms) - std::stoll(tsStr);
     if (remotePlanes[clientId] == nullptr) {
         std::lock_guard<std::mutex> lock(m_mutex);
         remoteAircraftInfo.push_back(clientId);
         remotePlanes[clientId] = new NetworkAircraft();
-        remotePlanes[clientId]->interpolator = new Interpolator();
+        remotePlanes[clientId]->interpolator = new Interpolator(offset);
     }
     remotePlanes[clientId]->interpolator->onWebSocketMessage(msg);
 }

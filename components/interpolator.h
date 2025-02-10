@@ -19,7 +19,7 @@ public:
     // A simple struct for your positional data
     struct EntityState
     {
-        double timestamp;
+        int64_t timestamp;
         double lat;
         double lon;
         double el;
@@ -28,7 +28,7 @@ public:
         double roll;
     };
 
-    Interpolator();
+    Interpolator(int);
     ~Interpolator() = default;
 
     // Delete copy semantics to ensure only one instance
@@ -39,11 +39,13 @@ public:
     void onWebSocketMessage(const std::string& msg);
 
     // Get interpolated state at a given renderTime
-    EntityState getInterpolatedState(double renderTime);
+    EntityState getInterpolatedState(int renderTime);
+    int64_t serverTimeOffset;
 
 private:
     std::deque<EntityState> m_buffer;   // Time-sorted buffer of states
     std::mutex m_mutex;                 // Protects m_buffer from concurrent access
+    
 
     // Helper: Insert new state (already parsed) in a sorted manner or at the back,
     // ignoring out-of-order data if timestamp < the last stored timestamp.

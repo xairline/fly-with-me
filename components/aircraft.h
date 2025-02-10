@@ -18,7 +18,6 @@ using namespace XPMP2;
 
 class RemoteAircraft : public Aircraft {
   private:
-    float serverTimeOffset;
     std::string clientId;
     Interpolator* interpolator;
 

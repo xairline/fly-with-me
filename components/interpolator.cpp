@@ -8,9 +8,7 @@
 #include "Interpolator.h"
 #include <algorithm> // for std::lower_bound (if needed)
 
-Interpolator::Interpolator() {
-    // You might reserve or configure your buffer here
-}
+Interpolator::Interpolator(int offset) { this->serverTimeOffset = offset; }
 
 //------------------------------------------------------------------------------
 // onWebSocketMessage
@@ -66,8 +64,7 @@ void Interpolator::addState(const EntityState &state) {
 //------------------------------------------------------------------------------
 // getInterpolatedState
 //------------------------------------------------------------------------------
-Interpolator::EntityState
-Interpolator::getInterpolatedState(double renderTime) {
+Interpolator::EntityState Interpolator::getInterpolatedState(int renderTime) {
     std::lock_guard<std::mutex> lock(m_mutex);
 
     // If no data in the buffer, return a default object
@@ -122,7 +119,6 @@ Interpolator::getInterpolatedState(double renderTime) {
             interp.pitch = sA.pitch + (sB.pitch - sA.pitch) * t;
             interp.roll = sA.roll + (sB.roll - sA.roll) * t;
             interp.heading = sA.heading + (sB.heading - sA.heading) * t;
-
             return interp;
         }
     }

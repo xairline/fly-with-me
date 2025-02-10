@@ -7,7 +7,7 @@
 
 #include "aircraft.h"
 
-RemoteAircraft::RemoteAircraft(Interpolator* interpolator,
+RemoteAircraft::RemoteAircraft(Interpolator *interpolator,
                                const std::string clientId,
                                const std::string &_icaoType,
                                const std::string &_icaoAirline,
@@ -37,20 +37,28 @@ RemoteAircraft::RemoteAircraft(Interpolator* interpolator,
 }
 
 void RemoteAircraft::UpdatePosition(float _elapsedSinceLastCall, int) {
-    
-    auto newState = this->interpolator->getInterpolatedState(_elapsedSinceLastCall);
-    const float angle = std::fmod(360.0f * GetTimeFragment(), 360.0f);,
-    
+    auto now = std::chrono::system_clock::now();
+    auto epoch_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+                        now.time_since_epoch())
+                        .count();
+    int epoch_ms_int = static_cast<int64_t>(epoch_ms);
+
+    auto newState = this->interpolator->getInterpolatedState(
+        epoch_ms_int - this->interpolator->serverTimeOffset);
+
     newState.el /= M_per_FT; // we need elevation in feet
+
+    LogMsg("interpolator: %lld,%f,%f,%f", newState.timestamp, newState.lat,
+           newState.lat, newState.el);
 
     // So, here we tell the plane its position, which takes care of vertical
     // offset, too
-    SetLocation(newState.lat, newState.lon, newState.el + 5, false);
+    SetLocation(newState.lat, newState.lon, newState.el + 15, false);
 
     // further attitude information
-    SetPitch(0.0f);
-    SetHeading(std::fmod(90.0f + angle, 360.0f));
-    SetRoll(20.0f);
+    SetPitch(newState.pitch);
+    SetHeading(newState.heading);
+    SetRoll(newState.roll);
 
     // Plane configuration info
     // This fills a large array of float values:

@@ -16,26 +16,26 @@
 #include "XPLMProcessing.h"
 #include "XPLMUtilities.h"
 
-#include "util.h"
-#include "menu.h"
-#include "websocket.h"
 #include "aircraft.h"
 #include "interpolator.h"
+#include "menu.h"
+#include "util.h"
+#include "websocket.h"
 
 struct NetworkAircraft {
-    RemoteAircraft* remotePlane;
-    Interpolator* interpolator;
+    RemoteAircraft *remotePlane;
+    Interpolator *interpolator;
 };
 
 class AppState final {
   public:
     static AppState *GetInstance();
-    std::map<std::string,NetworkAircraft*> remotePlanes;
+    std::map<std::string, NetworkAircraft *> remotePlanes;
     void Initialize();
     void Deinitialize();
     static float PosReportLoopCallback(float inElapsedSinceLastCall,
-                                float inElapsedTimeSinceLastFlightLoop,
-                                int inCounter, void *inRefcon);
+                                       float inElapsedTimeSinceLastFlightLoop,
+                                       int inCounter, void *inRefcon);
     void OnWebSocketMessage(const std::string &msg);
 
   private:
@@ -50,10 +50,8 @@ class AppState final {
     static XPLMDataRef planePitch;
     static XPLMDataRef planeHeading;
     static XPLMDataRef planeRoll;
-    
+
     std::mutex m_mutex;
     std::vector<std::string> remoteAircraftInfo;
-    
-    
 };
 #endif // APP_STATE_H

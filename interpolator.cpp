@@ -5,14 +5,14 @@
 //  Created by Di Zou on 2025-02-10.
 //
 
-#include "Interpolator.h"
+#include "interpolator.h"
 
 Interpolator::Interpolator(int64_t offset) { this->serverTimeOffset = offset; }
 
 //------------------------------------------------------------------------------
 // onWebSocketMessage
 //------------------------------------------------------------------------------
-void Interpolator::onWebSocketMessage(const std::string &msg) {
+void Interpolator::OnWebSocketMessage(const std::string &msg) {
     // We lock our mutex so we can safely modify/read the buffer
     std::lock_guard<std::mutex> lock(m_mutex);
 

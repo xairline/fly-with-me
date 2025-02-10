@@ -5,7 +5,8 @@
 //  Created by Di Zou on 2025-02-10.
 //
 
-#pragma once
+#ifndef INTERPOLATOR_H
+#define INTERPOLATOR_H
 
 #include <deque>
 #include <string>
@@ -37,7 +38,7 @@ public:
     Interpolator& operator=(const Interpolator&) = delete;
 
     // Called whenever you receive a new WebSocket message containing an EntityState
-    void onWebSocketMessage(const std::string& msg);
+    void OnWebSocketMessage(const std::string& msg);
 
     // Get interpolated state at a given renderTime
     EntityState getInterpolatedState(int64_t renderTime);
@@ -52,3 +53,4 @@ private:
     // ignoring out-of-order data if timestamp < the last stored timestamp.
     void addState(const EntityState& state);
 };
+#endif

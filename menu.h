@@ -16,7 +16,7 @@
 #include "XPLMProcessing.h"
 #include "XPLMUtilities.h"
 
-#include "../util.h"
+#include "util.h"
 
 enum MenuItems {
     MENU_AI=0,                ///< Menu Item "Toggle AI control"

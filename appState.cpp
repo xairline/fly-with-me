@@ -174,5 +174,5 @@ void AppState::OnWebSocketMessage(const std::string &msg) {
         remotePlanes[clientId] = new NetworkAircraft();
         remotePlanes[clientId]->interpolator = new Interpolator(offset);
     }
-    remotePlanes[clientId]->interpolator->onWebSocketMessage(msg);
+    remotePlanes[clientId]->interpolator->OnWebSocketMessage(msg);
 }

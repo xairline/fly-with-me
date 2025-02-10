@@ -7,17 +7,19 @@
 
 #include "aircraft.h"
 
-RemoteAircraft::RemoteAircraft(const std::string &_icaoType,
+RemoteAircraft::RemoteAircraft(Interpolator* interpolator,
+                               const std::string clientId,
+                               const std::string &_icaoType,
                                const std::string &_icaoAirline,
                                const std::string &_livery,
                                XPMPPlaneID _modeS_id, const std::string &_cslId)
     : Aircraft(_icaoType, _icaoAirline, _livery, _modeS_id, _cslId) {
-    // in our sample implementation, label, radar and info texts
-    // are not dynamic. In others, they might be, then update them
-    // in UpdatePosition()
+
+    this->clientId = clientId;
+    this->interpolator = interpolator;
 
     // Label
-    label = "XPMP2::Aircraft";
+    label = clientId;
     colLabel[0] = 0.0f; // green
     colLabel[1] = 1.0f;
     colLabel[2] = 0.0f;
@@ -35,25 +37,15 @@ RemoteAircraft::RemoteAircraft(const std::string &_icaoType,
 }
 
 void RemoteAircraft::UpdatePosition(float _elapsedSinceLastCall, int) {
-    // Calculate the plane's position
-    const float angle = std::fmod(360.0f * GetTimeFragment(), 360.0f);
-    positionTy pos = FindCenterPos(PLANE_DIST_M); // relative to user's plane
-    CirclePos(pos, angle, PLANE_RADIUS_M);        // turning around a circle
-    pos.y += PLANE_STACK_ALT_M * 2;               // 100m above user's aircraft
-
-    // Strictly speaking...this is not necessary, we could just write
-    // directly to drawInfo.x/y/z with above values (for y: + GetVertOfs()),
-    // but typically in a real-world application you would actually
-    // have lat/lon/elev...and then the call to SetLocation() is
-    // what you shall do:
-    double lat, lon, elev;
-    // location in lat/lon/feet
-    XPLMLocalToWorld(pos.x, pos.y, pos.z, &lat, &lon, &elev);
-    elev /= M_per_FT; // we need elevation in feet
+    
+    auto newState = this->interpolator->getInterpolatedState(_elapsedSinceLastCall);
+    const float angle = std::fmod(360.0f * GetTimeFragment(), 360.0f);,
+    
+    newState.el /= M_per_FT; // we need elevation in feet
 
     // So, here we tell the plane its position, which takes care of vertical
     // offset, too
-    SetLocation(lat, lon, elev, false);
+    SetLocation(newState.lat, newState.lon, newState.el + 5, false);
 
     // further attitude information
     SetPitch(0.0f);

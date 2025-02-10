@@ -11,12 +11,18 @@ AppState *AppState::instance = nullptr;
 XPLMDataRef AppState::planeLat = nullptr;
 XPLMDataRef AppState::planeLon = nullptr;
 XPLMDataRef AppState::planeEl = nullptr;
+XPLMDataRef AppState::planePitch = nullptr;
+XPLMDataRef AppState::planeRoll = nullptr;
+XPLMDataRef AppState::planeHeading = nullptr;
 
 AppState::AppState() {
     /* Find the data refs we want to record. */
     planeLat = XPLMFindDataRef("sim/flightmodel/position/latitude");
     planeLon = XPLMFindDataRef("sim/flightmodel/position/longitude");
     planeEl = XPLMFindDataRef("sim/flightmodel/position/elevation");
+    planePitch = XPLMFindDataRef("sim/flightmodel/position/true_theta");
+    planeRoll = XPLMFindDataRef("sim/flightmodel/position/true_phi");
+    planeHeading = XPLMFindDataRef("sim/flightmodel/position/true_psi");
 }
 
 AppState *AppState::GetInstance() {
@@ -30,7 +36,7 @@ void AppState::Initialize() {
 
     // Resister Pos report flight loop
     XPLMRegisterFlightLoopCallback(PosReportLoopCallback, -1.0f, NULL);
-    
+
     // The path separation character, one out of /\:
     char pathSep = XPLMGetDirectorySeparator()[0];
     // The plugin's path, results in something like
@@ -63,7 +69,7 @@ void AppState::Initialize() {
     if (res[0]) {
         LogMsg("XPMP2-Sample: Error while loading CSL packages: %s", res);
     }
-    
+
     // Now we also try to get control of AI planes. That's optional, though,
     // other plugins (like LiveTraffic, XSquawkBox, X-IvAp...)
     // could have control already
@@ -71,7 +77,7 @@ void AppState::Initialize() {
     if (res[0]) {
         LogMsg("XPMP2-Sample: Could not enable AI planes: %s", res);
     }
-    
+
     LogMsg("Plugin Path: %s", szPath);
     const std::string token = GetTokenFromFile(std::strcat(szPath, "config"));
     if (token != "") {
@@ -82,20 +88,19 @@ void AppState::Initialize() {
     } else {
         LogMsg("Failed to get Token: check %s", szPath);
     }
-    
+
     // Register the plane notifer function
     // (this is rarely used in actual applications, but used here for
     //  demonstration and testing purposes)
     XPMPRegisterPlaneNotifierFunc(CBPlaneNotifier, NULL);
-
 }
 
 void AppState::Deinitialize() {
     // Stop pos reporting flight loop
     XPLMUnregisterFlightLoopCallback(PosReportLoopCallback, NULL);
 
-    // Remove the planes
-    //    PlanesRemove();
+    // TODO: Remove the planes
+    //     PlanesRemove();
 
     // Give up AI plane control
     XPMPMultiplayerDisable();
@@ -114,10 +119,15 @@ float AppState::PosReportLoopCallback(float inElapsedSinceLastCall,
     float lat = XPLMGetDataf(planeLat);
     float lon = XPLMGetDataf(planeLon);
     float el = XPLMGetDataf(planeEl);
+    float pitch = XPLMGetDataf(planePitch);
+    float roll = XPLMGetDataf(planeRoll);
+    float heading = XPLMGetDataf(planeHeading);
 
     // Create a comma-separated string from the values.
     std::string message = std::to_string(lat) + "," + std::to_string(lon) +
-                          "," + std::to_string(el);
+                          "," + std::to_string(el) + "," +
+                          std::to_string(pitch) + "," + std::to_string(roll) +
+                          "," + std::to_string(heading);
     // Send the binary message.
     try {
         WebSocketClient::getInstance().send(message);
@@ -125,5 +135,32 @@ float AppState::PosReportLoopCallback(float inElapsedSinceLastCall,
         LogMsg("Send error: %s", e.message().c_str());
     }
 
+    std::lock_guard<std::mutex> lock(AppState::GetInstance()->m_mutex);
+    while (!AppState::GetInstance()->remoteAircraftInfo.empty()) {
+        // Process the last element.
+        auto info = AppState::GetInstance()->remoteAircraftInfo.back();
+        LogMsg("New Remote player: %s", info.c_str());
+        AppState::GetInstance()->remotePlanes[info]->remotePlane =
+            new RemoteAircraft(
+                AppState::GetInstance()->remotePlanes[info]->interpolator, info,
+                "A320", // type
+                "ACA",  // airline
+                "");    // livery
+                        // Remove the element.
+        AppState::GetInstance()->remoteAircraftInfo.pop_back();
+    }
+
     return POS_LOOP_INTERVAL;
+}
+
+void AppState::OnWebSocketMessage(const std::string &msg) {
+    std::vector<std::string> parsedMsg = splitString(msg, ',');
+    std::string clientId = parsedMsg[1];
+    if (remotePlanes[clientId] == nullptr) {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        remoteAircraftInfo.push_back(clientId);
+        remotePlanes[clientId] = new NetworkAircraft();
+        remotePlanes[clientId]->interpolator = new Interpolator();
+    }
+    remotePlanes[clientId]->interpolator->onWebSocketMessage(msg);
 }

@@ -6,6 +6,8 @@
 //
 
 #include "websocket.h"
+#include "appState.h"
+
 #include <chrono>
 #include <functional>
 #include <thread>
@@ -119,8 +121,8 @@ void WebSocketClient::on_open(websocketpp::connection_hdl hdl) {
 // Event handler called when a message is received.
 void WebSocketClient::on_message(websocketpp::connection_hdl hdl,
                                  ws_client::message_ptr msg) {
+    AppState::GetInstance()->OnWebSocketMessage(msg->get_payload());
     return;
-//    LogMsg("Received message: %s", msg->get_payload().c_str());
 }
 
 // Event handler called when the connection is closed.

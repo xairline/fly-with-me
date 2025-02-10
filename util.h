@@ -14,6 +14,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
 
 // X-Plane SDK
 #include "XPLMDataAccess.h"
@@ -100,5 +102,7 @@ inline char *strScpy(char *dest, const char *src, size_t size) {
 }
 
 std::string GetTokenFromFile(const std::string filePath);
+
+std::vector<std::string> splitString(const std::string& str, char delimiter);
 
 #endif // UTIL_H

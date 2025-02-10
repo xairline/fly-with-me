@@ -27,9 +27,6 @@
 #error This plugin requires version 300 of the SDK
 #endif
 
-/// The one aircraft of this type that we manage
-RemoteAircraft *pSamplePlane = nullptr;
-
 PLUGIN_API int XPluginStart(char *outName, char *outSig, char *outDesc) {
     std::strcpy(outName, "fly-with-me");
     std::strcpy(outSig, "org.xairline.fly-with-me");
@@ -42,25 +39,11 @@ PLUGIN_API int XPluginStart(char *outName, char *outSig, char *outDesc) {
 PLUGIN_API int XPluginEnable(void) {
 
     AppState::GetInstance()->Initialize();
-
-    try {
-        pSamplePlane = new RemoteAircraft("A320", // type
-                                          "ACA",  // airline
-                                          "");    // livery
-    } catch (const XPMP2::XPMP2Error &e) {
-        LogMsg("Could not create object of type SampleAircraft: %s", e.what());
-        pSamplePlane = nullptr;
-    }
-
     LogMsg("XPMP2-Sample: Enabled");
     return 1;
 }
 
 PLUGIN_API void XPluginDisable(void) {
-    if (pSamplePlane) {
-        delete pSamplePlane;
-        pSamplePlane = nullptr;
-    }
     AppState::GetInstance()->Deinitialize();
     LogMsg("Disabled");
 }

@@ -83,7 +83,7 @@ void AppState::Initialize() {
     if (token != "") {
         // Launch the WebSocket connection on a new thread
         WebSocketClient &wsClient = WebSocketClient::getInstance();
-        const std::string uri = "wss://app.xairline.org/apis/mp?auth=";
+        const std::string uri = "ws://app.xairline.org/apis/mp?auth=";
         wsClient.connect(uri + token);
     } else {
         LogMsg("Failed to get Token: check %s", szPath);

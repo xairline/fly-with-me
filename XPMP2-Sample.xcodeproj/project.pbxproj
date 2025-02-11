@@ -327,11 +327,10 @@
 					"$(HEADER_SEARCH_PATHS)",
 					lib/websocketpp,
 					"lib/**",
-					"/opt/homebrew/opt/openssl@3.4/include",
+
 				);
 				LIBRARY_SEARCH_PATHS = (
 					lib/fmod,
-					"/opt/homebrew/opt/openssl@3.4/lib",
 				);
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
@@ -348,8 +347,6 @@
 					"-Wl,_XPluginDisable",
 					"-Wl,-exported_symbol",
 					"-Wl,_XPluginStop",
-					"-lcrypto",
-					"-lssl",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.twinfan.XPMP2-Sample";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -439,11 +436,9 @@
 					"$(HEADER_SEARCH_PATHS)",
 					lib/websocketpp,
 					"lib/**",
-					"/opt/homebrew/opt/openssl@3.4/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					lib/fmod,
-					"/opt/homebrew/opt/openssl@3.4/lib",
 				);
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
@@ -460,8 +455,6 @@
 					"-Wl,_XPluginDisable",
 					"-Wl,-exported_symbol",
 					"-Wl,_XPluginStop",
-					"-lcrypto",
-					"-lssl",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.twinfan.XPMP2-Sample";
 				PRODUCT_NAME = "${TARGET_NAME}";

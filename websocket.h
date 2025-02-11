@@ -3,21 +3,18 @@
 
 #define ASIO_STANDALONE
 
-#include <asio/ssl/context.hpp>
 #include <string>
 #include <thread>
 #include <websocketpp/client.hpp>
-#include <websocketpp/config/asio_client.hpp>
+#include <websocketpp/config/asio_no_tls_client.hpp>
 #include <memory>
 #include <functional>
 
 #include "util.h"
 
 // Type alias for the WebSocket++ client using the asio_client config.
-typedef websocketpp::client<websocketpp::config::asio_tls_client> ws_client;
+typedef websocketpp::client<websocketpp::config::asio_client> ws_client;
 
-// Type alias for the SSL context pointer.
-typedef std::shared_ptr<asio::ssl::context> context_ptr;
 
 class WebSocketClient {
   public:

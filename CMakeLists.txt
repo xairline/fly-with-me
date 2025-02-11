@@ -185,9 +185,9 @@ add_dependencies(XPMP2-Sample XPMP2)
 target_link_libraries(XPMP2-Sample XPMP2)
 
 # Include building/linking openssl
-find_package(OpenSSL REQUIRED)
-include_directories(${OPENSSL_INCLUDE_DIR})
-target_link_libraries(XPMP2-Sample ${OPENSSL_LIBRARIES})
+# find_package(OpenSSL REQUIRED)
+# include_directories(${OPENSSL_INCLUDE_DIR})
+# target_link_libraries(XPMP2-Sample ${OPENSSL_LIBRARIES})
 
 if (WIN32)
     # Link with winsock for network and iphlpapi for GetAdaptersAddresses

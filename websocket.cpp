@@ -12,27 +12,11 @@
 #include <functional>
 #include <thread>
 
-// TLS initialization handler for standalone Asio.
-context_ptr on_tls_init(websocketpp::connection_hdl /*hdl*/) {
-    // Create a new SSL context with TLS v1.2 client settings.
-    context_ptr ctx =
-        std::make_shared<asio::ssl::context>(asio::ssl::context::tlsv12_client);
-
-    // Set the desired SSL options.
-    ctx->set_options(
-        asio::ssl::context::default_workarounds | asio::ssl::context::no_sslv2 |
-        asio::ssl::context::no_sslv3 | asio::ssl::context::single_dh_use);
-
-    return ctx;
-}
 
 // Private constructor: sets up the ASIO transport and event handlers.
 WebSocketClient::WebSocketClient() {
     m_client.init_asio();
     m_client.start_perpetual();
-
-    // Bind the TLS initialization handler.
-    m_client.set_tls_init_handler(on_tls_init);
 
     // Bind the event handlers to the class member functions.
     m_client.set_open_handler(
